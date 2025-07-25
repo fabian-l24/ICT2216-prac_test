@@ -1,0 +1,51 @@
+name: Selenium UI Test for PHP Web App
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ui-test:
+    runs-on: ubuntu-latest
+
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+        options: >-
+          --shm-size=2g
+          --health-cmd="curl -f http://localhost:4444/wd/hub/status || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+          --add-host=host.docker.internal:host-gateway
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Selenium deps
+        run: npm ci
+
+      - name: Build and run PHP web app
+        run: |
+          docker compose -f app-docker-compose.yml up -d --build
+          echo "⌛ Waiting for Nginx to become available..."
+          until curl -s --head http://localhost:8080 | grep "200 OK"; do
+            sleep 3
+          done
+
+      - name: Run Selenium test
+        run: node tests/test.js github
+
+      - name: Teardown
+        if: always()
+        run: docker compose -f app-docker-compose.yml down

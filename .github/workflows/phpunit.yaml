@@ -1,0 +1,30 @@
+name: Run PHPUnit Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring
+          coverage: xdebug
+
+      - name: Install PHP dependencies
+        working-directory: php
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPUnit
+        working-directory: php
+        run: ./vendor/bin/phpunit ./tests
