@@ -37,7 +37,7 @@ jobs:
 
       - name: Build and run PHP web app
         run: |
-          docker compose -f app-docker-compose.yml up -d --build
+          docker compose -f docker-compose.yml up -d --build php nginx
           echo "⌛ Waiting for Nginx to become available..."
           until curl -s --head http://localhost:8080 | grep "200 OK"; do
             sleep 3
