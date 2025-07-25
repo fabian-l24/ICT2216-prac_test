@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/vendor/autoload.php'; // Composer autoloader
+require_once __DIR__ . '/vendor/autoload.php'; // Composer autoloader
 
 use App\Validator;
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xml:lang="en">
 <head>
     <title>Search Page</title>
 </head>

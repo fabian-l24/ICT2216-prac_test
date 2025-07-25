@@ -4,7 +4,7 @@ $cleanTerm = htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8');
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en" xml:lang="en">
 <head>
     <title>Search Result</title>
 </head>
