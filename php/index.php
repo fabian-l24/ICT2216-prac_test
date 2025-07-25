@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php'; // Composer autoloader
 
-use App\Utils\Validator;
+use App\Validator;
 
 $searchTerm = '';
 $error = '';

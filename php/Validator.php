@@ -1,5 +1,5 @@
 <?php
-namespace App\Utils;
+namespace App;
 
 class Validator {
     public static function isXSS($input) {
