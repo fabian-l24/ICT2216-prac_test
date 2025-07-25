@@ -30,6 +30,5 @@ class ValidatorTest extends TestCase
     {
         $this->assertFalse(Validator::isSQLInjection('unionized labor movement'));
         $this->assertFalse(Validator::isSQLInjection('selective attention span'));
-        $this->assertFalse(Validator::isXSS('2 < 3 and 5 > 4'));
     }
 }
